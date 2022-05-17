@@ -1,5 +1,9 @@
 function Favorite() {
-    return 
+    return (
+        <div>
+        <h1> This is Favorite Marvels</h1>
+    </div>
+    )
 
     
 }
