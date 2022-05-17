@@ -2,15 +2,18 @@ import './App.css';
 import { Link, Route, Routes } from 'react-router-dom'
 import Favorite from './Components/Favorite';
 import AllMarvels from './Components/AllMarvels';
-
+import { useState }  from 'react'
 
 
 
 
 function App() {
+  const [favorite, setFavorite] = useState([])
   
-  
-
+  const handleAddToFavorite = (character) => {
+    console.log(character)
+    setFavorite([...favorite, character])
+  }
     
 
 
@@ -21,8 +24,8 @@ function App() {
         <Link to='/favorite'>Favorite</Link>
       </nav>
       <Routes>
-      <Route exact path='/' element={<AllMarvels />} />
-      <Route exact path='/favorite' element={ <Favorite />} /> 
+      <Route exact path='/' element={ <AllMarvels addToFavorite={handleAddToFavorite} />} />
+      <Route exact path='/favorite' element={ <Favorite  favorite={favorite}/>} /> 
       </Routes>
     </div>
   );
