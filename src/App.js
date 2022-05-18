@@ -8,13 +8,18 @@ import { useState }  from 'react'
 
 
 function App() {
-  const [favorite, setFavorite] = useState([])
-  
-  const handleAddToFavorite = (character) => {
-    console.log(character)
-    setFavorite([...favorite, character])
+  // 1. state declared
+  const [favorites, setFavorites] = useState([])
+
+  // 2. function declared and passed as props
+  const handleAddToFavorites = (character) => {
+    // console.log(this.character)
+    // character.filter((name) => {name === name.name})
+    // 7.  the first state is now filled with the fetched data in a new array and is passed as a props in Favorite.js
+    setFavorites([...favorites, character])
   }
-    
+
+
 
 
   return (
@@ -24,8 +29,10 @@ function App() {
         <Link to='/favorite'>Favorite</Link>
       </nav>
       <Routes>
-      <Route exact path='/' element={ <AllMarvels addToFavorite={handleAddToFavorite} />} />
-      <Route exact path='/favorite' element={ <Favorite  favorite={favorite}/>} /> 
+        {/* 3. here the function is passed to the AllMarvels component*/}
+      <Route exact path='/' element={ <AllMarvels addToFavorites={handleAddToFavorites} />} />
+      {/* 8. here I am passing favorite */}
+      <Route exact path='/favorite' element={ <Favorite  favorites={favorites}/>} /> 
       </Routes>
     </div>
   );
