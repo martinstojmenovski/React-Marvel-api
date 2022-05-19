@@ -1,7 +1,7 @@
 
 
 function SinglePoster(props) {
-// console.log(props.marvel)
+console.log(props.name)
    
 
     let posterDisplayBig = "";
@@ -14,7 +14,6 @@ function SinglePoster(props) {
                     style={{ height: "300px" }} />
                 <h3>{props.name}</h3>
                 <p>{props.description}</p>
-                {/* 5. function is received and included in a button and grabs the new state declared */}
                 <button onClick={ props.addToFavorites }>Add To Favorite</button>
             </div>
         )

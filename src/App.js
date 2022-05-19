@@ -2,24 +2,47 @@ import './App.css';
 import { Link, Route, Routes } from 'react-router-dom'
 import Favorite from './Components/Favorite';
 import AllMarvels from './Components/AllMarvels';
-import { useState }  from 'react'
+import { useState, useEffect }  from 'react'
 
-
+const publicKey = "44d2d43ba9be5678fb9c06aa57e4bdcb"
+const hash = "90a26c67e0b21e7532c4e3439210f3ea"
 
 
 function App() {
-  // 1. state declared
+  const [marvelList, setMarvelList] = useState([])
+  const [selectedCharacter, setSelectedCharacter] = useState("")
   const [favorites, setFavorites] = useState([])
 
-  // 2. function declared and passed as props
+  useEffect(() => {
+    fetch(`https://gateway.marvel.com/v1/public/characters?limit=50&ts=1&apikey=${publicKey}&hash=${hash}`)
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data.data.results)
+            setMarvelList(data.data.results)
+            setSelectedCharacter(data.data.results)
+        }
+        )
+}, [])
+
+const handlePosterClick = (character) => {
+    // console.log(character)
+    setSelectedCharacter(character)
+    // console.log(favorites)
+}
+
+
+const marvelPics = marvelList.map((book) => {
+    return <img key={book.id} onClick={() => {handlePosterClick(book)}}
+        src={book.thumbnail.path + '.' + book.thumbnail.extension}
+        alt="Marvel commic posters"
+        style={{ height: "100px" }} />
+})
+
+ 
   const handleAddToFavorites = (character) => {
-    // console.log(this.character)
-    // character.filter((name) => {name === name.name})
-    // 7.  the first state is now filled with the fetched data in a new array and is passed as a props in Favorite.js
-    setFavorites([...favorites, character])
+     setFavorites([...favorites, character])
+   
   }
-
-
 
 
   return (
@@ -30,9 +53,9 @@ function App() {
       </nav>
       <Routes>
         {/* 3. here the function is passed to the AllMarvels component*/}
-      <Route exact path='/' element={ <AllMarvels addToFavorites={handleAddToFavorites} />} />
+      <Route exact path='/' element={ <AllMarvels addToFavorites={handleAddToFavorites} marvelPics={marvelPics} selectedCharacter={selectedCharacter} />} />
       {/* 8. here I am passing favorite */}
-      <Route exact path='/favorite' element={ <Favorite  favorites={favorites}/>} /> 
+      <Route exact path='/favorite' element={ <Favorite  favorites={ favorites } /> } /> 
       </Routes>
     </div>
   );
