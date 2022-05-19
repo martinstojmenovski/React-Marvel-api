@@ -1,14 +1,12 @@
 import { useState } from 'react'
-import SinglePoster from './SinglePoster'
+
 function Favorite(props) {
-    // console.log(props)
     const [favoritePoster, setFavoritePoster] = useState("")
 
     let myFavorites = props.favorites.map((character, index) => {
-        // console.log(character)
         return (
-            <div key={index}>
-                <img onClick={() => handlePosterClick(character)}
+            <div>
+                <img key={index} onClick={() => handlePosterClick(character)}
                     src={character.thumbnail.path + '.' + character.thumbnail.extension}
                     alt="Marvel commic posters"
                     style={{ height: "100px" }} />
@@ -18,29 +16,45 @@ function Favorite(props) {
 
     const handlePosterClick = (character) => {
         setFavoritePoster(character)
-        console.log(character)
+    }
+
+    const handleRemoveFavorite = (indexToRemove) => {
+
+        let newTeam = props.favorites.filter((index) => {
+            return index !== indexToRemove
+        })
+
+        props.setFavorites(newTeam)
+        setFavoritePoster("")
     }
 
 
-    return (
-        <div>
-            <h1> This is Favorite Marvels</h1>
-            <div>{myFavorites}</div>
-            {/* <SinglePoster
-                addToFavorites={() => props.addToFavorites(props.selectedCharacter)}
-                name={favoritePoster.name}
-                pic={props.selectedCharacter.thumbnail}
-                description={props.selectedCharacter.description} 
-                /> */}
+
+    let posterDisplayBig = "";
+    if (favoritePoster.name) {
+
+        posterDisplayBig = (
             <div>
-                
+
                 <img src={favoritePoster.thumbnail.path + '.' + favoritePoster.thumbnail.extension}
                     alt="Marvel commic posters"
                     style={{ height: "300px" }} />
                 <h3>{favoritePoster.name}</h3>
                 <p>{favoritePoster.description}</p>
-                <button >Delete Favorite</button>
+                <button onClick={() => handleRemoveFavorite(favoritePoster)}>Delete Favorite</button>
             </div>
+        )
+    }
+
+
+
+    return (
+        <div>
+            <h1>Your Favorite Characters</h1>
+            <main className='homepage'>
+            <div>{myFavorites}</div>
+            <div>{posterDisplayBig}</div>
+            </main>
         </div>
     )
 

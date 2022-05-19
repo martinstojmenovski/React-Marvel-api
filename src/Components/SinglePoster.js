@@ -1,8 +1,6 @@
 
 
 function SinglePoster(props) {
-console.log(props.name)
-   
 
     let posterDisplayBig = "";
     if (props.name) {
@@ -14,18 +12,15 @@ console.log(props.name)
                     style={{ height: "300px" }} />
                 <h3>{props.name}</h3>
                 <p>{props.description}</p>
-                <button onClick={ props.addToFavorites }>Add To Favorite</button>
+                <button onClick={props.addToFavorites}>Add To Favorite</button>
             </div>
         )
     }
-
 
     return (
         <div>
             {posterDisplayBig}
         </div>
     )
-
-
 }
 export default SinglePoster
