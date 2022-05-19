@@ -2,3 +2,26 @@
   text-align: center;
 }
 
+div {
+  border-style: solid;
+}
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: rgb(50, 49, 53); 
+}
+
+.homepage {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  
+}
+@media  (min-width: 600px) {
+  
+  .homepage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+  }
+}
